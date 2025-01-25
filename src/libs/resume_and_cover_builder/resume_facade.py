@@ -12,6 +12,7 @@ from src.libs.resume_and_cover_builder.llm.llm_job_parser import LLMParser
 from src.job import Job
 from src.utils.chrome_utils import HTML_to_PDF
 from .config import global_config
+from datetime import datetime
 
 class ResumeFacade:
     def __init__(self, api_key, style_manager, resume_generator, resume_object, output_path):
@@ -83,6 +84,15 @@ class ResumeFacade:
         self.job.location = self.llm_job_parser.extract_location()
         self.job.link = job_url
         logger.info(f"Extracting job details from URL: {job_url}")
+
+    def set_job(self, job):
+        self.job = Job()
+        self.job.company = job.get('job_company')
+        self.job.role = job.get('job_title')
+        self.job.location = job.get('job_location')
+        self.job.description = job.get('job_description')
+        job_date = datetime.now().strftime("%Y-%m-%d")
+        self.job.link = f"{self.job.company}_{self.job.role}_{self.job.location}_{job_date}"
 
 
     def create_resume_pdf_job_tailored(self) -> tuple[bytes, str]:
