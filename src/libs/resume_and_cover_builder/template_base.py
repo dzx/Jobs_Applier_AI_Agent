@@ -28,7 +28,6 @@ prompt_cover_letter_template = """
     <p>[Closing paragraph: Express your enthusiasm for the position and thank the recipient for their consideration.]</p>
     <p>Sincerely,</p>
     <p>[Your Name]</p>
-    <p>[Date]</p>
     </div>
 </section>
 ```
